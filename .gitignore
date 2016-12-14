@@ -1,0 +1,4 @@
+clojure/resources
+clojure/figwheel_server.log
+clojure/target/stale/leiningen.figwheel.clean-on-dependency-change
+.idea
