@@ -6,30 +6,25 @@
 (def app-clock (atom (js/Date.)))
 
 (defn bulb [state]
-  [:div.bulb {:class state}])
+  [:div.bulb {:class (name state)}])
 
-(defn bulbs-row [bulbs state]
+(defn bulbs-row [bulbs color]
   [:div.clock-row
    (doall
-    (map-indexed #(bulb (if (and (= state "special")
-                                 (zero? (mod (inc %1) 3)))
-                          "red"
-                          (if (not= state "white")
-                            "yellow"
-                            "white"))) (range bulbs)))])
+    (map #(bulb (color % color)) (range bulbs)))])
 
 (defn seconds-component [seconds]
   [:div.seconds
    [bulbs-row 1 (if (even? seconds)
-                  "yellow"
-                  "white")]])
+                  :yellow
+                  :off)]])
 
 (defn bulbs-line-component [toggled size]
   [:div.bulb-line
    [bulbs-row toggled (if (= size 11)
-                        "special"
-                        "yellow")]
-   [bulbs-row (- size toggled) "white"]])
+                        #(if (#{2 5 8} %) :red :yellow)
+                        :yellow)]
+   [bulbs-row (- size toggled) :off]])
 
 (defn set-clock! []
   ;(prn "Setting the time baby! " (.getSeconds (js/Date.)))
