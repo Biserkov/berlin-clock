@@ -46,9 +46,7 @@
                   [bulbs-line-component (mod hours 5) 4]
                   [bulbs-line-component (quot minutes 5) 11]
                   [bulbs-line-component (mod minutes 5) 4]]))
-    {:component-did-mount #(do
-                             (prn "We are here?")
-                              (js/setInterval set-clock! 1000))}))
+    {:component-did-mount #(prn :intervalID (js/setInterval set-clock! 1000))}))
 
 (reagent/render-component [clock]
                           (. js/document (getElementById "app")))
