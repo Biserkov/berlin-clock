@@ -5,13 +5,14 @@
 
 (def app-clock (atom (js/Date.)))
 
-(defn bulb [state]
+(defn bulb [state id]
+  ^{:key id}
   [:div.bulb {:class (name state)}])
 
 (defn bulbs-row [bulbs color]
   [:div.clock-row
    (doall
-    (map #(bulb (color % color)) (range bulbs)))])
+    (map #(bulb (color % color) %) (range bulbs)))])
 
 (defn seconds-component [seconds]
   [:div.seconds
